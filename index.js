@@ -6,6 +6,7 @@ const router = require('./router');
 const mongoose = require('mongoose');
 
 const app = express();
+app.use(require('cors')());
 
 // DB Setup
 mongoose.connect("mongodb+srv://admin:user123@cluster0.3snih.mongodb.net/salesEntry?retryWrites=true&w=majority", { useNewUrlParser: true })

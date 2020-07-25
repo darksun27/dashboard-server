@@ -16,7 +16,6 @@ mongoose.connect("mongodb://localhost:27017/auth", { useNewUrlParser: true })
 app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({ extended: true }));
 router(app);
-require('./controllers/entry');
 
 // Server Setup
 const PORT = process.env.PORT || 5000;

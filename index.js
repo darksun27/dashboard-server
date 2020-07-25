@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 // DB Setup
-mongoose.connect("mongodb://localhost:27017/auth", { useNewUrlParser: true })
+mongoose.connect("mongodb+srv://admin:user123@cluster0.3snih.mongodb.net/salesEntry?retryWrites=true&w=majority", { useNewUrlParser: true })
   .then(() => console.log('MongoDB Connected.....'))
   .catch(err => console.log(err));
 

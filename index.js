@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const router = require('./router');
 const mongoose = require('mongoose');
+const multer = require('multer');
 
 const app = express();
 app.use(require('cors')());
@@ -16,6 +17,7 @@ mongoose.connect("mongodb+srv://admin:user123@cluster0.3snih.mongodb.net/salesEn
 // App Setup
 app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(multer().array());
 router(app);
 
 // Server Setup

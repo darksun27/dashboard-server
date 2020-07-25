@@ -33,6 +33,14 @@ exports.newEntry = async (req, res) => {
         })
     }
 
+    exports.deleteSale = async (req, res) => {
+        await salesEntry.findByIdAndRemove(req.query.id, (err)=> {
+            if(err){
+                res.send(err);
+            }
+        })
+    }
+
     exports.getSales = async (req, res) => {
         await salesEntry.find({ email: req.user.email }, (err, data) => {
             if(err) {

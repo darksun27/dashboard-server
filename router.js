@@ -14,6 +14,6 @@ module.exports = function(app) {
   app.post('/signup', Authentication.signup);
   app.post('/newEntry',[requireAuth, isAdmin.isAdmin], Entry.newEntry);
   app.get('/getSales', requireAuth, Entry.getSales);
-  app.get('/getSalesPerson', requireAuth, isAdmin.isAdmin, Entry.getSalesPerson);
-  app.get('/deleteSale', requireAuth, isAdmin.isAdmin, Entry.deleteSale);
+  app.get('/getSalesPerson', [requireAuth, isAdmin.isAdmin], Entry.getSalesPerson);
+  app.get('/deleteSale', [requireAuth, isAdmin.isAdmin], Entry.deleteSale);
 }

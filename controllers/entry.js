@@ -10,7 +10,7 @@ const salesEntry = mongoose.model('salesEntry');
 
 exports.newEntry = async (req, res) => {
         const data = {
-            email: req.body.email,
+            email: req.user.email,
             customer: req.body.customer,
             product: req.body.product
         };

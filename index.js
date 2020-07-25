@@ -20,6 +20,6 @@ router(app);
 // Server Setup
 const PORT = process.env.PORT || 5000;
 const server = http.createServer(app);
-server.listen(PORT, function(){
+server.listen(process.env.PORT, function(){
   console.log("Server running on localhost:5000......")
 });

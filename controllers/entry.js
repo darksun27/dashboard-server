@@ -10,7 +10,7 @@ const salesEntry = mongoose.model('salesEntry');
 
 exports.newEntry = async (req, res) => {
         const data = {
-            email: req.user.email,
+            email: req.body.email,
             customer: req.body.customer,
             product: req.body.product
         };
@@ -24,7 +24,7 @@ exports.newEntry = async (req, res) => {
     };
 
     exports.getSales = async (req, res) => {
-        await salesEntry.find({ email: req.query.email }, (err, data) => {
+        await salesEntry.find({ email: req.user.email }, (err, data) => {
             if(err) {
                 res.send(err)
             }else {

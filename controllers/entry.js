@@ -23,6 +23,16 @@ exports.newEntry = async (req, res) => {
         })
     };
 
+    exports.getSalesPerson = async (req, res) => {
+        await salesEntry.find({email: req.query.email}, (err, data) => {
+            if(err) {
+                res.send(err);
+            }else {
+                res.send(data);
+            }
+        })
+    }
+
     exports.getSales = async (req, res) => {
         await salesEntry.find({ email: req.user.email }, (err, data) => {
             if(err) {

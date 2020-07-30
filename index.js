@@ -10,7 +10,7 @@ const app = express();
 app.use(require('cors')());
 
 // DB Setup
-mongoose.connect("mongodb+srv://admin:user123@cluster0.3snih.mongodb.net/salesEntry?retryWrites=true&w=majority", { useNewUrlParser: true })
+mongoose.connect("mongodb+srv://dashboard:dashboard123@cluster0.xj96y.mongodb.net/unintern?retryWrites=true&w=majority", { useNewUrlParser: true })
   .then(() => console.log('MongoDB Connected.....'))
   .catch(err => console.log(err));
 

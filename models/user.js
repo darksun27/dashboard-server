@@ -15,12 +15,7 @@ const userSchema = new Schema ({
   type: {
     type: String,
     default: "user"
-  },
-  accountNumber: String,
-  accountName: String,
-  bankName: String,
-  bankBranch: String,
-  ifsc: String
+  }
 });
 
 // On Save Hook, encrypt password

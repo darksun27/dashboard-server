@@ -6,9 +6,11 @@ const requireAuth = passport.authenticate('jwt', { session: false });
 const requireSignin = passport.authenticate('local', { session: false });
 require('../models/data_entry');
 require('../models/user');
+require('../models/bank');
 
 const salesEntry = mongoose.model('salesEntry');
 const user = mongoose.model('user');
+const bank = mongoose.model('bank');
 
 exports.newEntry = async (req, res) => {
     const data = {
@@ -67,7 +69,7 @@ exports.newEntry = async (req, res) => {
     }
 
     exports.getBankDetails = async (req, res) => {
-        await user.find({email: req.query.email}, (err, data)=> {
+        await bank.find({email: req.query.email}, (err, data)=> {
             if(err){
                 res.send(err);
             }else {
@@ -76,21 +78,35 @@ exports.newEntry = async (req, res) => {
         })
     }
     exports.saveBankDetails = async (req, res) => {
-        console.log("Hello world");
         
         const upd = {
+            email: req.body.email,
             accountNumber : req.body.accountNumber,
             accountName : req.body.accountName,
             bankName : req.body.bankName,
             bankBranch : req.body.bankBranch,
             ifsc : req.body.ifsc
         }
+        await bank.findOne({email: req.body.email}, async (err, user)=>{
+            if(user){
 
-        await user.findOneAndUpdate({email: req.body.email},{upd},{new:true}, (err, user)=> {
-            if(err){
-                res.send(err);
-            }else {
-                res.send(user)
+                user.accountNumber = req.body.accountNumber;
+                user.accountName = req.body.accountName;
+                user.bankName = req.body.bankName;
+                user.bankBranch = req.body.bankBranch;
+                user.ifsc = req.body.ifsc;
+                user.save();
+                res.send(user);
+
+            }
+            else {
+                await bank.create(upd ,async (err, details)=> {
+                    if(err){
+                        res.send(err);
+                    }else {
+                        res.send(details)
+                    }
+                })
             }
         })
     }

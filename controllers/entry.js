@@ -77,17 +77,18 @@ exports.newEntry = async (req, res) => {
     }
 
     exports.saveBankDetails = async (req, res) => {
-        await user.find({email: req.query.email}, (err, user)=> {
+        const upd = {
+            accountNumber = req.body.acc_number,
+            accuntName = req.body.acc_name,
+            bankName = req.body.bank,
+            bankBranch = req.body.branch,
+            ifsc = req.body.ifsc
+        }
+        await user.find({email: req.query.email}, {upd},(err, user)=> {
             if(err){
                 res.send(err);
             }else {
-                user['accountNumber'] = req.body.acc_number;
-                user['accuntName'] = req.body.acc_name;
-                user['bankName'] = req.body.bank;
-                user['bankBranch'] = req.body.branch;
-                user['ifsc'] = req.body.ifsc;
-                user.save();
-                res.send(user);
+                res.send(user)
             }
         })
     }

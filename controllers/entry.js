@@ -86,18 +86,10 @@ exports.newEntry = async (req, res) => {
             ifsc : req.body.ifsc
         }
 
-        console.log(upd)
-        await user.findOne({email: req.body.email},async (err, user)=> {
+        await user.findOneAndUpdate({email: req.body.email},{upd},{new:true}, (err, user)=> {
             if(err){
                 res.send(err);
             }else {
-                user.accountName = req.body.accountName;
-                user.bankName = req.body.bankName;
-                user.bankBranch = req.body.bankBranch;
-                user.accountNumber = req.body.accountNumber;
-                user.ifsc = req.body.ifsc;
-                await user.save();
-                console.log(user);
                 res.send(user)
             }
         })

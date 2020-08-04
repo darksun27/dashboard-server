@@ -18,5 +18,5 @@ module.exports = function(app) {
   app.get('/deleteSale', [requireAuth, isAdmin.isAdmin], Entry.deleteSale);
   app.get('/getSalesAll', [requireAuth, isAdmin.isAdmin], Entry.getSalesAll);
   app.get('/getBankDetails', [requireAuth], Entry.getBankDetails);
-  app.get('/saveBankDetails', [requireAuth], Entry.saveBankDetails);
+  app.post('/saveBankDetails', [requireAuth], Entry.saveBankDetails);
 }

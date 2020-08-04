@@ -10,6 +10,8 @@ module.exports = function(app) {
   app.get('/', requireAuth, function(req, res) {
     res.send({ hi: 'there' });
   });
+  app.get('/getBankDetails', requireAuth, Entry.getBankDetails);
+  app.post('/saveBankDetails', requireAuth, Entry.saveBankDetails);
   app.post('/signin', requireSignin, Authentication.signin);
   app.post('/signup', Authentication.signup);
   app.post('/newEntry',[requireAuth, isAdmin.isAdmin], Entry.newEntry);
@@ -17,6 +19,5 @@ module.exports = function(app) {
   app.get('/getSalesPerson', [requireAuth, isAdmin.isAdmin], Entry.getSalesPerson);
   app.get('/deleteSale', [requireAuth, isAdmin.isAdmin], Entry.deleteSale);
   app.get('/getSalesAll', [requireAuth, isAdmin.isAdmin], Entry.getSalesAll);
-  app.get('/getBankDetails', [requireAuth], Entry.getBankDetails);
-  app.post('/saveBankDetails', [requireAuth], Entry.saveBankDetails);
+  app.post('/confirmSale', Entry.confirmSale);
 }

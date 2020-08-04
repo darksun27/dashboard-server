@@ -11,18 +11,18 @@ const salesEntry = mongoose.model('salesEntry');
 const user = mongoose.model('user');
 
 exports.newEntry = async (req, res) => {
-        const data = {
-            email: req.body.email,
-            customer: req.body.customer,
-            product: req.body.product
-        };
-        await salesEntry.create(data, (err, data) => {
-            if(err) {
-                res.send(err)
-            }else {
-                res.send('Done');
-            }
-        })
+    const data = {
+        email: req.body.email,
+        customer: req.body.customer,
+        product: req.body.product
+    };
+    await salesEntry.create(data, (err, data) => {
+        if(err) {
+            res.send(err)
+        }else {
+            res.send('Done');
+        }
+    })
     };
 
     exports.getSalesPerson = async (req, res) => {
@@ -75,20 +75,52 @@ exports.newEntry = async (req, res) => {
             }
         })
     }
-
     exports.saveBankDetails = async (req, res) => {
+        console.log("Hello world");
+        
         const upd = {
             accountNumber : req.body.accountNumber,
-            accuntName : req.body.accountName,
+            accountName : req.body.accountName,
             bankName : req.body.bankName,
             bankBranch : req.body.bankBranch,
             ifsc : req.body.ifsc
         }
-        await user.find({email: req.query.email}, {upd},(err, user)=> {
+
+        console.log(upd)
+        await user.findOne({email: req.body.email},async (err, user)=> {
             if(err){
                 res.send(err);
             }else {
+                user.accountName = req.body.accountName;
+                user.bankName = req.body.bankName;
+                user.bankBranch = req.body.bankBranch;
+                user.accountNumber = req.body.accountNumber;
+                user.ifsc = req.body.ifsc;
+                await user.save();
+                console.log(user);
                 res.send(user)
+            }
+        })
+    }
+
+    exports.confirmSale = async (req,res)=> {
+        await user.findById(req.body.email, async(err,user)=>{ 
+            if(err){
+                res.send(err);
+            }
+            else {
+                const data = {
+                    email: user.email,
+                    customer: req.body.customer,
+                    product: req.body.product
+                };
+                await salesEntry.create(data, (err, data) => {
+                    if(err) {
+                        res.send(err)
+                    }else {
+                        res.send('Done');
+                    }
+                })
             }
         })
     }

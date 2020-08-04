@@ -7,7 +7,7 @@ module.exports = {
       if(user['type'] == "admin") {
         next();
       }
-      else {res.send("Unauthorized")}
+      else {res.send("Unauthorized 222")}
     })
   }
 }

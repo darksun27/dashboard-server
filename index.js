@@ -8,6 +8,7 @@ const multer = require('multer');
 
 const app = express();
 app.use(require('cors')());
+//add cors
 
 // DB Setup
 mongoose.connect("mongodb+srv://dashboard:dashboard123@cluster0.xj96y.mongodb.net/unintern?retryWrites=true&w=majority", { useNewUrlParser: true })
